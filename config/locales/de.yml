@@ -32,6 +32,11 @@ de:
       range_end_same_year: "%-d. %B, %Y"
       range_start_same_month: "%-d. – "
       range_end_same_month: "%-d. %B, %Y"
+  time:
+    formats:
+      hour: "%-k"
+    am: ""
+    pm: ""
   business_days_in_year:
     zero: "letzter Arbeitstag im Jahr"
     one: "ein weiterer Arbeitstag im Jahr"

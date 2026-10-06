@@ -62,6 +62,7 @@ def begin_new_page pdf, side
 end
 
 def hole_punches pdf
+  return unless HOLE_PUNCH_MARKS
   pdf.canvas do
     x = 25
     # Measuring it on the page it should be `[(1.25).in, (5.5).in, (9.75).in]`,
@@ -76,7 +77,7 @@ def hole_punches pdf
 end
 
 def heading_format(overrides = {})
-  { size: 20, color: DARK_COLOR }.merge(overrides)
+  { size: 20, color: DARK_COLOR, style: :bold }.merge(overrides)
 end
 
 def subheading_format(overrides = {})
@@ -164,4 +165,10 @@ def date_range(start, finish)
       [:range_start_same_month, :range_end_same_month]
     end
   [I18n.l(start, format: formats.first), I18n.l(finish, format: formats.last)].join
+end
+
+# Hour labels come from HOUR_LABELS as 24 hour numbers so they can key the
+# appointments file; the locale decides how they're printed.
+def hour_label_text(hour)
+  I18n.l(Time.new(2000, 1, 1, hour), format: :hour)
 end

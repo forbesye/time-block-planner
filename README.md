@@ -66,6 +66,19 @@ You can also generate a PDF of some simple lined pages:
 ./notes.rb
 ```
 
+### A Whole Year
+
+To generate every week of a year into `YYYY_time_block_planner.pdf` (defaults to the current year):
+```sh
+./yearly.rb --year 2026
+```
+
+Each week is a weekly plan on both sides of a sheet, then a tasks page and a
+calendar page for each of the seven days, so a week is 16 pages and always
+starts on the front of a sheet. Weeks run Monday to Sunday, and the first and
+last weeks of the year are included in full, even where they reach into the
+neighbouring year.
+
 ## Limitations
 
 Probably only works on a Mac since it hardcodes the font path.
