@@ -49,7 +49,7 @@ If you'd like to generate multiple weeks at once:
 
 On a Mac you can send the PDF directly to your printer:
 ```sh
-lpr time_block_pages.pdf
+lpr output/time_block_pages.pdf
 ```
 
 ### One-on-one Pages
@@ -68,7 +68,7 @@ You can also generate a PDF of some simple lined pages:
 
 ### A Whole Year
 
-To generate every week of a year into `YYYY_time_block_planner.pdf` (defaults to the current year):
+To generate every week of a year into `output/YYYY_time_block_planner.pdf` (defaults to the current year):
 ```sh
 ./yearly.rb --year 2026
 ```

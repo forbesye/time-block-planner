@@ -1,6 +1,7 @@
 # Change Log
 
 ## 2026-10
+- Write generated PDFs into an `output/` directory.
 - Add `yearly.rb` to generate a whole year of planner pages, with a weekly plan
   and full tasks and calendar pages for all seven days of each week.
 - The yearly planner's tasks pages drop the Notes column so tasks span the full width, and start blank instead of pre-filling from `tasks.yaml`.
@@ -8,6 +9,8 @@
 - Calendar pages run from 6am to 8pm with every hour labelled, and the labels sit on the hour lines.
 - Turn off the hole-punch guides by default with `HOLE_PUNCH_MARKS`.
 - Set the type in IBM Plex Serif instead of Futura, and set headings in bold.
+- Give the yearly planner's weekly plan pages even margins instead of a binding gutter.
+- Split the yearly planner's tasks into Deep Tasks and Shallow Tasks halves.
 - Drop the quarter/week/day subheading from the yearly planner's calendar pages.
 - Hide the sprint countdown on calendar pages when `SPRINT_EPOCH` is nil, and make that the default.
 - Number weeks by ISO week so they stay in step across a year boundary.

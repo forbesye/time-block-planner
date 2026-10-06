@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative './shared'
-FILE_NAME = "notes.pdf"
+FILE_NAME = output_path("notes.pdf")
 
 puts "Generating a notes page into #{FILE_NAME}"
 

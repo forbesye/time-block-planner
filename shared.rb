@@ -4,10 +4,11 @@ require 'pry'
 require 'date'
 require 'i18n'
 require 'optparse'
+require 'fileutils'
 require_relative './config'
 
-def init_pdf
-  pdf = Prawn::Document.new(margin: RIGHT_PAGE_MARGINS, print_scaling: :none)
+def init_pdf(margin: RIGHT_PAGE_MARGINS)
+  pdf = Prawn::Document.new(margin: margin, print_scaling: :none)
   pdf.font_families.update(FONTS)
   pdf.font(FONTS.keys.first)
   pdf.stroke_color MEDIUM_COLOR
@@ -16,7 +17,7 @@ def init_pdf
 end
 
 def init_i18n(locale)
-  I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
+  I18n.load_path += Dir[File.expand_path("config/locales", __dir__) + "/*.yml"]
   I18n.default_locale = locale if locale
 end
 
@@ -53,8 +54,8 @@ def parse_options
   options.merge(date: date, date_source: source)
 end
 
-def begin_new_page pdf, side
-  margin = side == :left ? LEFT_PAGE_MARGINS : RIGHT_PAGE_MARGINS
+def begin_new_page pdf, side, margin: nil
+  margin ||= side == :left ? LEFT_PAGE_MARGINS : RIGHT_PAGE_MARGINS
   pdf.start_new_page size: PAGE_SIZE, layout: :portrait, margin: margin
   if side == :right
     hole_punches pdf
@@ -171,4 +172,9 @@ end
 # appointments file; the locale decides how they're printed.
 def hour_label_text(hour)
   I18n.l(Time.new(2000, 1, 1, hour), format: :hour)
+end
+
+def output_path(file_name)
+  FileUtils.mkdir_p(OUTPUT_DIR)
+  File.join(OUTPUT_DIR, file_name)
 end

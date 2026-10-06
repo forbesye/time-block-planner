@@ -135,7 +135,7 @@ def week_ahead_page pdf, first_day, last_day
   notes_page pdf, heading_left, subheading_left, heading_right, subheading_right
 end
 
-def daily_tasks_page pdf, date, tasks_by_wday, appointments_by_wday, metrics_rows = 5, notes: true
+def daily_tasks_page pdf, date, tasks_by_wday, appointments_by_wday, metrics_rows = 5, notes: true, split_tasks: false
   begin_new_page pdf, :left
 
   header_row_count = 2
@@ -174,9 +174,18 @@ def daily_tasks_page pdf, date, tasks_by_wday, appointments_by_wday, metrics_row
 
   # Tasks / Notes
   task_note_start = metrics_rows + 1
-  pdf.grid([task_note_start, 0], [task_note_start, 1]).bounding_box do
-    pdf.translate 6, 0 do
-      pdf.text I18n.t('tasks'), color: DARK_COLOR, valign: :center
+  # Split mode stacks deep tasks over shallow tasks, each with half the rows.
+  task_headers =
+    if split_tasks
+      { task_note_start => 'deep_tasks', task_note_start + (last_row - task_note_start + 1) / 2 => 'shallow_tasks' }
+    else
+      { task_note_start => 'tasks' }
+    end
+  task_headers.each do |row, key|
+    pdf.grid([row, 0], [row, 1]).bounding_box do
+      pdf.translate 6, 0 do
+        pdf.text I18n.t(key), color: DARK_COLOR, valign: :center
+      end
     end
   end
   if notes
@@ -205,7 +214,7 @@ def daily_tasks_page pdf, date, tasks_by_wday, appointments_by_wday, metrics_row
 
   # Checkboxes
   checkbox_padding = 6
-  ((task_note_start + 1)..last_row).each_with_index do |row, index|
+  ((task_note_start + 1)..last_row).reject { |row| task_headers.key?(row) }.each_with_index do |row, index|
     # Make the box wider than needed to avoid wrapping if the task name is too long
     pdf.grid([row, 0], [row, 4]).bounding_box do
       draw_checkbox pdf, checkbox_padding, tasks_by_wday[date.wday][index]

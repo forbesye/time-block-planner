@@ -18,7 +18,7 @@ init_i18n(options[:locale])
 # The week plan takes both sides of a sheet so every week starts on a front page.
 def week_ahead_spread pdf, monday, sunday
   week_ahead_page pdf, monday, sunday
-  begin_new_page pdf, :left
+  begin_new_page pdf, :left, margin: EVEN_PAGE_MARGINS
   notes_page pdf,
     I18n.t('week_plan_heading'),
     date_range(monday, sunday),
@@ -27,7 +27,7 @@ def week_ahead_spread pdf, monday, sunday
 end
 
 year = options[:year]
-file_name = "#{year}_time_block_planner.pdf"
+file_name = output_path("#{year}_time_block_planner.pdf")
 last_day = Date.new(year, 12, 31)
 # Back up to the Monday starting the first week of the year.
 monday = Date.new(year, 1, 1)
@@ -38,21 +38,20 @@ appointments_by_wday = load_weekly_data_from_yaml(File.join(File.dirname(__FILE_
 
 puts "Generating #{year} into #{file_name}"
 
-pdf = init_pdf
+pdf = init_pdf(margin: EVEN_PAGE_MARGINS)
 first_week = true
 
 while monday <= last_day
   sunday = monday.next_day(6)
   puts "Generating planner pages for #{date_range(monday, sunday)}"
 
-  begin_new_page(pdf, :right) unless first_week
+  begin_new_page(pdf, :right, margin: EVEN_PAGE_MARGINS) unless first_week
   first_week = false
-
   week_ahead_spread pdf, monday, sunday
 
   (0..6).each do |i|
     day = monday.next_day(i)
-    daily_tasks_page pdf, day, tasks_by_wday, appointments_by_wday, notes: false
+    daily_tasks_page pdf, day, tasks_by_wday, appointments_by_wday, notes: false, split_tasks: true
     daily_calendar_page pdf, day, appointments_by_wday, subheading: false
   end
 

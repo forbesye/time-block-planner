@@ -2,7 +2,7 @@
 
 require_relative "./pages"
 
-FILE_NAME = "time_block_pages.pdf"
+FILE_NAME = output_path("time_block_pages.pdf")
 
 options = parse_options
 init_i18n(options[:locale])

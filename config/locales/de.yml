@@ -47,6 +47,8 @@ de:
     other: "%{count} weitere Tage im Sprint"
   notes: "Notizen:"
   tasks: "Aufgaben:"
+  deep_tasks: "Tiefe Aufgaben"
+  shallow_tasks: "Flache Aufgaben"
   daily_metrics: "Daily Metrics"
   shutdown_complete: "Shutdown complete"
   semester: "Semester"

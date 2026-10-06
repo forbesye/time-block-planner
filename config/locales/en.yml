@@ -47,6 +47,8 @@ en:
     other: "%{count} more days in the sprint"
   notes: "Notes:"
   tasks: "Tasks:"
+  deep_tasks: "Deep Tasks"
+  shallow_tasks: "Shallow Tasks"
   daily_metrics: "Daily Metrics"
   shutdown_complete: "Shutdown complete"
   semester: "Semester"

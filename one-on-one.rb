@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative './shared'
-FILE_NAME = "one-on-one_forms.pdf"
+FILE_NAME = output_path("one-on-one_forms.pdf")
 
 
 def sections pdf, first_row, last_row, headings

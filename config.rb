@@ -30,10 +30,14 @@ FONTS = {
 
 # Print "+" guides for punching binder holes on right-hand pages.
 HOLE_PUNCH_MARKS = false
+# Generated PDFs are written here.
+OUTPUT_DIR = File.join(__dir__, 'output')
 PAGE_SIZE = 'LETTER' # Could also do 'A4'
 # Order is top, right, bottom, left
 LEFT_PAGE_MARGINS = [36, 72, 36, 36]
 RIGHT_PAGE_MARGINS = [36, 36, 36, 72]
+# For pages that don't need room for a binding.
+EVEN_PAGE_MARGINS = [36, 36, 36, 36]
 
 # Adjust the quarters to a fiscal year, 1 for Jan, 2 for Feb, etc.
 Q1_START_MONTH = 2
